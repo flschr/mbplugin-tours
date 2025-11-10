@@ -12,9 +12,20 @@ Ein Hugo-Plugin für die Visualisierung von Wandertouren aus GPX-Dateien - eine 
 
 ## Quick Start
 
-### Demo ansehen
+### 🌐 Live Demo
 
-Öffne `demo/index.html` im Browser für eine vollständige Demo aller Features.
+**GitHub Pages:** [https://flschr.github.io/mbplugin-hiking-tours](https://flschr.github.io/mbplugin-hiking-tours)
+
+Oder lokal: Öffne `demo/index.html` im Browser für eine vollständige Demo aller Features.
+
+#### GitHub Pages aktivieren
+
+1. Gehe zu deinem Repository → **Settings** → **Pages**
+2. Unter **Source** wähle:
+   - **Branch:** `main` (oder dein Hauptbranch)
+   - **Folder:** `/docs` oder `/root`
+3. Klicke **Save**
+4. Deine Demo ist dann unter `https://<username>.github.io/<repo-name>` erreichbar
 
 ### Installation (Coming Soon)
 
