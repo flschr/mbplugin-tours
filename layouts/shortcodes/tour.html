@@ -1,0 +1,105 @@
+{{- /*
+  Tour Shortcode - Renders a tour info box with optional Leaflet map
+
+  Required params: id, title, date, type, distance_km, elevation_m, gpx
+  Optional params: region, duration_h, max_alt_m, min_alt_m, bergfex_url, cover_image
+
+  XSS Safety: All user parameters are properly escaped via htmlEscape or used only as attributes
+*/ -}}
+
+{{- $id := .Get "id" -}}
+{{- $title := .Get "title" -}}
+{{- $date := .Get "date" -}}
+{{- $type := .Get "type" -}}
+{{- $region := .Get "region" -}}
+{{- $distanceKm := .Get "distance_km" -}}
+{{- $elevationM := .Get "elevation_m" -}}
+{{- $durationH := .Get "duration_h" -}}
+{{- $gpx := .Get "gpx" -}}
+{{- $coverImage := .Get "cover_image" -}}
+{{- $bergfexUrl := .Get "bergfex_url" -}}
+
+{{- /* Ensure styles and scripts are loaded only once per page */ -}}
+{{- if not (.Page.Scratch.Get "tour-assets-loaded") -}}
+  {{- .Page.Scratch.Set "tour-assets-loaded" true -}}
+  <link rel="stylesheet" href="/tours/leaflet.css" />
+  <link rel="stylesheet" href="{{ "tours/styles.css" | relURL }}" />
+{{- end -}}
+
+<div class="tour-box" id="tour-{{ $id | htmlEscape }}" data-tour-id="{{ $id | htmlEscape }}">
+  <div class="tour-header">
+    <h3 class="tour-title">{{ $title | htmlEscape }}</h3>
+
+    {{- if $coverImage -}}
+    <div class="tour-cover">
+      <img src="{{ $coverImage | htmlEscape }}" alt="{{ $title | htmlEscape }}" loading="lazy" />
+    </div>
+    {{- end -}}
+
+    <div class="tour-meta">
+      {{- /* Build metadata line with available fields */ -}}
+      {{- $metaParts := slice -}}
+
+      {{- if $region -}}
+        {{- $metaParts = $metaParts | append (printf "%s" ($region | htmlEscape)) -}}
+      {{- end -}}
+
+      {{- if $date -}}
+        {{- $metaParts = $metaParts | append (printf "%s" ($date | htmlEscape)) -}}
+      {{- end -}}
+
+      {{- if $type -}}
+        {{- $typeLabel := $type -}}
+        {{- if eq $type "hike" -}}{{ $typeLabel = "🥾 Hike" -}}
+        {{- else if eq $type "mtb" -}}{{ $typeLabel = "🚵 MTB" -}}
+        {{- else if eq $type "gravel" -}}{{ $typeLabel = "🚴 Gravel" -}}
+        {{- else if eq $type "run" -}}{{ $typeLabel = "🏃 Run" -}}
+        {{- else -}}{{ $typeLabel = printf "⛰️ %s" $type -}}
+        {{- end -}}
+        {{- $metaParts = $metaParts | append $typeLabel -}}
+      {{- end -}}
+
+      {{- if $distanceKm -}}
+        {{- $metaParts = $metaParts | append (printf "%s km" ($distanceKm | htmlEscape)) -}}
+      {{- end -}}
+
+      {{- if $elevationM -}}
+        {{- $metaParts = $metaParts | append (printf "%s hm" ($elevationM | htmlEscape)) -}}
+      {{- end -}}
+
+      {{- if $durationH -}}
+        {{- $metaParts = $metaParts | append (printf "%s h" ($durationH | htmlEscape)) -}}
+      {{- end -}}
+
+      {{- if $metaParts -}}
+        <span class="tour-info">{{ delimit $metaParts " · " }}</span>
+      {{- end -}}
+    </div>
+
+    {{- if $bergfexUrl -}}
+    <div class="tour-links">
+      <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="tour-external-link">
+        View on Bergfex →
+      </a>
+    </div>
+    {{- end -}}
+  </div>
+
+  {{- if $gpx -}}
+  <div class="tour-map-container">
+    <div class="tour-map"
+         data-gpx="{{ $gpx | htmlEscape }}"
+         data-tour-id="{{ $id | htmlEscape }}"
+         id="map-{{ $id | htmlEscape }}">
+    </div>
+  </div>
+  {{- end -}}
+</div>
+
+{{- /* Load scripts at the end, only once per page */ -}}
+{{- if not (.Page.Scratch.Get "tour-scripts-loaded") -}}
+  {{- .Page.Scratch.Set "tour-scripts-loaded" true -}}
+  <script src="/tours/leaflet.js"></script>
+  <script src="/tours/leaflet-gpx.js"></script>
+  <script src="/tours/app.js"></script>
+{{- end -}}
