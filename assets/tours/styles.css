@@ -1,0 +1,320 @@
+/**
+ * Tour Plugin Styles
+ *
+ * Provides clean, responsive styling for:
+ * - Tour shortcode boxes with maps
+ * - Tours archive page with filters and statistics
+ */
+
+/* ========================================
+   Tour Shortcode (Single Tour Box)
+   ======================================== */
+
+.tour-box {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.tour-header {
+  margin-bottom: 1rem;
+}
+
+.tour-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.tour-cover {
+  margin: 1rem 0;
+}
+
+.tour-cover img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+.tour-meta {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+.tour-info {
+  display: inline-block;
+  line-height: 1.6;
+}
+
+.tour-links {
+  margin-top: 0.75rem;
+}
+
+.tour-external-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.tour-external-link:hover {
+  background: #0052a3;
+}
+
+.tour-map-container {
+  margin-top: 1.5rem;
+}
+
+.tour-map {
+  width: 100%;
+  height: 400px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+}
+
+.map-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   Tours Archive Page
+   ======================================== */
+
+.tours-archive {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.tours-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tours-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.tours-description {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Statistics Cards */
+.tours-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 120px;
+  padding: 1.25rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0066cc;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Filters */
+.tours-filters {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.filter-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+/* Tours List */
+.tours-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tour-item {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tour-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: #ccc;
+}
+
+.tour-item-header {
+  margin-bottom: 0.5rem;
+}
+
+.tour-item-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.tour-item-title a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.tour-item-title a:hover {
+  color: #0052a3;
+  text-decoration: underline;
+}
+
+.tour-item-meta {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Empty State */
+.tours-empty {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 8px;
+  color: #666;
+}
+
+.tours-empty code {
+  background: #e0e0e0;
+  padding: 0.2em 0.5em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* ========================================
+   Responsive Adjustments
+   ======================================== */
+
+@media (max-width: 768px) {
+  .tour-map {
+    height: 300px;
+  }
+
+  .tours-stats {
+    flex-direction: column;
+  }
+
+  .stat-card {
+    min-width: 100%;
+  }
+
+  .tours-filters {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tour-item {
+    padding: 0.75rem;
+  }
+
+  .tour-item-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tours-archive {
+    padding: 1rem 0.5rem;
+  }
+
+  .tours-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .tour-box {
+    padding: 1rem;
+  }
+
+  .tour-title {
+    font-size: 1.25rem;
+  }
+
+  .tour-map {
+    height: 250px;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
