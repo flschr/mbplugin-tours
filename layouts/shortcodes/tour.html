@@ -63,7 +63,10 @@
         {{- if $date -}}
         <div class="badge">
           <i class="fa-solid fa-calendar-days badge-icon"></i>
-          <span>{{ $date | htmlEscape }}</span>
+          <span>
+            {{- $parsedDate := time.AsTime $date -}}
+            {{- $parsedDate.Format "02.01.2006" -}}
+          </span>
         </div>
         {{- end -}}
       </div>
@@ -96,7 +99,7 @@
         {{- if $maxHeight -}}
         <div class="tile tile-maxheight">
           <div class="tile-main">
-            <i class="fa-solid fa-arrow-up-to-line tile-icon"></i>
+            <i class="fa-solid fa-mountain tile-icon"></i>
             <div class="tile-value">{{ $maxHeight | htmlEscape }}</div>
           </div>
           <div class="tile-label">Max. Höhe (m)</div>
@@ -112,6 +115,21 @@
           </div>
           <div class="tile-label">Dauer (h)</div>
         </div>
+        {{- end -}}
+      </div>
+
+      {{- /* Action buttons - GPX download and Bergfex link */ -}}
+      <div class="tour-action-buttons">
+        {{- if $gpx -}}
+        <a href="{{ $gpx | htmlEscape }}" download class="tour-action-button tour-gpx-button">
+          <i class="fa-solid fa-download"></i> GPX Download
+        </a>
+        {{- end -}}
+
+        {{- if $bergfexUrl -}}
+        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="tour-action-button tour-bergfex-button">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Bergfex
+        </a>
         {{- end -}}
       </div>
 
@@ -132,15 +150,6 @@
         </div>
       </div>
       {{- end -}}
-
-      {{- /* Bergfex link */ -}}
-      {{- if $bergfexUrl -}}
-      <div class="tour-links">
-        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="tour-external-link">
-          View on Bergfex →
-        </a>
-      </div>
-      {{- end -}}
     </div>
 
     {{- /* Right column: Map */ -}}
@@ -159,13 +168,4 @@
     </div>
     {{- end -}}
   </div>
-
-  {{- /* GPX download link */ -}}
-  {{- if $gpx -}}
-  <div class="tour-gpx-download">
-    <a href="{{ $gpx | htmlEscape }}" download class="tour-gpx-link">
-      <i class="fa-solid fa-download"></i> Download GPX
-    </a>
-  </div>
-  {{- end -}}
 </div>
