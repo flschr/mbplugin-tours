@@ -69,6 +69,20 @@
           </span>
         </div>
         {{- end -}}
+
+        {{- if $gpx -}}
+        <a href="{{ $gpx | htmlEscape }}" download class="badge badge-link">
+          <i class="fa-solid fa-download badge-icon"></i>
+          <span>GPX</span>
+        </a>
+        {{- end -}}
+
+        {{- if $bergfexUrl -}}
+        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="badge badge-link">
+          <i class="fa-solid fa-arrow-up-right-from-square badge-icon"></i>
+          <span>Bergfex</span>
+        </a>
+        {{- end -}}
       </div>
 
       {{- /* Metric tiles grid */ -}}
@@ -115,21 +129,6 @@
           </div>
           <div class="tile-label">Dauer (h)</div>
         </div>
-        {{- end -}}
-      </div>
-
-      {{- /* Action buttons - GPX download and Bergfex link */ -}}
-      <div class="tour-action-buttons">
-        {{- if $gpx -}}
-        <a href="{{ $gpx | htmlEscape }}" download class="tour-action-button tour-gpx-button">
-          <i class="fa-solid fa-download"></i> GPX
-        </a>
-        {{- end -}}
-
-        {{- if $bergfexUrl -}}
-        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="tour-action-button tour-bergfex-button">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> Bergfex
-        </a>
         {{- end -}}
       </div>
 
