@@ -16,11 +16,6 @@
   background: white;
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-}
-
-.tour-box:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .tour-title {
@@ -85,17 +80,11 @@
 
 .tile {
   background: #f8f9fa;
-  border: 1px solid #e0e0e0;
   padding: 0.75rem;
-  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.tile:hover {
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .tile-icon {
@@ -140,42 +129,34 @@
   color: #e65100;
 }
 
-/* Action buttons section (GPX download, Bergfex) */
+/* Action buttons section (GPX download, Bergfex) - as tiles */
 .tour-action-buttons {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
   margin-top: 1rem;
-  flex-wrap: wrap;
 }
 
 .tour-action-button {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
-  color: white;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  color: #333;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
+  text-align: center;
 }
 
-.tour-gpx-button {
-  background: #28a745;
+.tour-gpx-button i {
+  font-size: 1.1rem;
 }
 
-.tour-gpx-button:hover {
-  background: #218838;
-}
-
-.tour-bergfex-button {
-  background: #0066cc;
-}
-
-.tour-bergfex-button:hover {
-  background: #0052a3;
+.tour-bergfex-button i {
+  font-size: 1.1rem;
 }
 
 /* Map section (right column) */
