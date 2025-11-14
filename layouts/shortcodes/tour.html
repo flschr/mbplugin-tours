@@ -29,140 +29,135 @@
 {{- end -}}
 
 <div class="tour-box" id="tour-{{ $id | htmlEscape }}" data-tour-id="{{ $id | htmlEscape }}">
-  <h3 class="tour-title">{{ $title | htmlEscape }}</h3>
+  <div class="tour-ticket-headline">
+    <div class="ticket-meta">
+      {{- if $date -}}
+      <div class="ticket-chip ticket-chip-date">
+        <i class="fa-solid fa-calendar-days"></i>
+        <span>
+          {{- $parsedDate := time.AsTime $date -}}
+          {{- $parsedDate.Format "02.01.2006" -}}
+        </span>
+      </div>
+      {{- end -}}
 
-  {{- if $coverImage -}}
-  <div class="tour-cover">
-    <img src="{{ $coverImage | htmlEscape }}" alt="{{ $title | htmlEscape }}" loading="lazy" />
+      {{- if $type -}}
+      {{- $typeClass := printf "ticket-chip-type-%s" (urlize $type) -}}
+      <div class="ticket-chip ticket-chip-type {{ $typeClass }}">
+        {{- if eq $type "hike" -}}<i class="fa-solid fa-person-hiking"></i><span>Hike</span>
+        {{- else if eq $type "mtb" -}}<i class="fa-solid fa-person-biking"></i><span>MTB</span>
+        {{- else if eq $type "gravel" -}}<i class="fa-solid fa-bicycle"></i><span>Gravel</span>
+        {{- else if eq $type "run" -}}<i class="fa-solid fa-person-running"></i><span>Run</span>
+        {{- else -}}<i class="fa-solid fa-mountain"></i><span>{{ $type | htmlEscape }}</span>
+        {{- end -}}
+      </div>
+      {{- end -}}
+    </div>
+
+    <h3 class="tour-title">{{ $title | htmlEscape }}</h3>
+
+    {{- if $region -}}
+    <div class="ticket-region">Region: <span>{{ $region | htmlEscape }}</span></div>
+    {{- end -}}
   </div>
-  {{- end -}}
 
-  <div class="tour-main">
-    {{- /* Left column: Info tiles and peaks */ -}}
-    <div class="tour-info-section">
-      {{- /* Type and Region badges */ -}}
-      <div class="tour-meta-badges">
-        {{- if $type -}}
-        <div class="badge">
-          {{- if eq $type "hike" -}}<i class="fa-solid fa-person-hiking badge-icon"></i><span>Hike</span>
-          {{- else if eq $type "mtb" -}}<i class="fa-solid fa-person-biking badge-icon"></i><span>MTB</span>
-          {{- else if eq $type "gravel" -}}<i class="fa-solid fa-bicycle badge-icon"></i><span>Gravel</span>
-          {{- else if eq $type "run" -}}<i class="fa-solid fa-person-running badge-icon"></i><span>Run</span>
-          {{- else -}}<i class="fa-solid fa-mountain badge-icon"></i><span>{{ $type | htmlEscape }}</span>
+  <div class="tour-ticket-grid">
+    <div class="tour-column tour-column-details">
+      {{- if $coverImage -}}
+      <figure class="tour-cover">
+        <img src="{{ $coverImage | htmlEscape }}" alt="{{ $title | htmlEscape }}" loading="lazy" />
+        <figcaption>Tourfoto</figcaption>
+      </figure>
+      {{- end -}}
+
+      <div class="tour-essentials">
+        <div class="tour-section-label">Kenndaten</div>
+        <div class="tour-stats">
+          {{- if $distanceKm -}}
+          <div class="tour-stat">
+            <div class="stat-label">Distanz</div>
+            <div class="stat-value">{{ $distanceKm | htmlEscape }}</div>
+            <div class="stat-unit">km</div>
+          </div>
+          {{- end -}}
+
+          {{- if $elevationM -}}
+          <div class="tour-stat">
+            <div class="stat-label">Aufstieg</div>
+            <div class="stat-value">{{ $elevationM | htmlEscape }}</div>
+            <div class="stat-unit">m</div>
+          </div>
+          {{- end -}}
+
+          {{- if $maxHeight -}}
+          <div class="tour-stat">
+            <div class="stat-label">Max. Höhe</div>
+            <div class="stat-value">{{ $maxHeight | htmlEscape }}</div>
+            <div class="stat-unit">m</div>
+          </div>
+          {{- end -}}
+
+          {{- if $durationH -}}
+          <div class="tour-stat">
+            <div class="stat-label">Dauer</div>
+            <div class="stat-value">{{ $durationH | htmlEscape }}</div>
+            <div class="stat-unit">h</div>
+          </div>
           {{- end -}}
         </div>
-        {{- end -}}
-
-        {{- if $date -}}
-        <div class="badge">
-          <i class="fa-solid fa-calendar-days badge-icon"></i>
-          <span>
-            {{- $parsedDate := time.AsTime $date -}}
-            {{- $parsedDate.Format "02.01.2006" -}}
-          </span>
-        </div>
-        {{- end -}}
       </div>
 
-      {{- /* Metric tiles grid */ -}}
-      <div class="tour-tiles">
-        {{- /* Distance tile */ -}}
-        {{- if $distanceKm -}}
-        <div class="tile tile-distance">
-          <div class="tile-main">
-            <i class="fa-solid fa-route tile-icon"></i>
-            <div class="tile-value">{{ $distanceKm | htmlEscape }}</div>
-          </div>
-          <div class="tile-label">Distanz (km)</div>
-        </div>
-        {{- end -}}
-
-        {{- /* Elevation tile */ -}}
-        {{- if $elevationM -}}
-        <div class="tile tile-elevation">
-          <div class="tile-main">
-            <i class="fa-solid fa-arrow-trend-up tile-icon"></i>
-            <div class="tile-value">{{ $elevationM | htmlEscape }}</div>
-          </div>
-          <div class="tile-label">Aufstieg (m)</div>
-        </div>
-        {{- end -}}
-
-        {{- /* Max height tile */ -}}
-        {{- if $maxHeight -}}
-        <div class="tile tile-maxheight">
-          <div class="tile-main">
-            <i class="fa-solid fa-mountain tile-icon"></i>
-            <div class="tile-value">{{ $maxHeight | htmlEscape }}</div>
-          </div>
-          <div class="tile-label">Max. Höhe (m)</div>
-        </div>
-        {{- end -}}
-
-        {{- /* Duration tile */ -}}
-        {{- if $durationH -}}
-        <div class="tile tile-duration">
-          <div class="tile-main">
-            <i class="fa-regular fa-clock tile-icon"></i>
-            <div class="tile-value">{{ $durationH | htmlEscape }}</div>
-          </div>
-          <div class="tile-label">Dauer (h)</div>
-        </div>
-        {{- end -}}
-      </div>
-
-      {{- /* Peaks section (if provided) */ -}}
       {{- if $peaks -}}
       <div class="tour-peaks">
-        <div class="peaks-title">Bestiegene Gipfel</div>
-        <div class="peaks-list">
+        <div class="tour-section-label">Gipfelprotokoll</div>
+        <ol class="peaks-ledger">
           {{- range split $peaks ";" -}}
             {{- $peak := trim . " " -}}
             {{- if $peak -}}
-            <div class="peak-item">
-              <i class="fa-solid fa-mountain peak-icon"></i>
+            <li class="peak-row">
               <span class="peak-name">{{ $peak | htmlEscape }}</span>
-            </div>
+            </li>
             {{- end -}}
           {{- end -}}
-        </div>
+        </ol>
       </div>
       {{- end -}}
     </div>
 
-    {{- /* Right column: Map */ -}}
     {{- $mapImage := .Get "map_image" -}}
     {{- if not $mapImage -}}
-      {{- /* Check for auto-generated map */ -}}
       {{- $mapImage = printf "/maps/%s.png" $id -}}
     {{- end -}}
 
-    {{- if $mapImage -}}
-    <div class="tour-map-section">
-      <img src="{{ $mapImage | htmlEscape }}"
-           alt="Map of {{ $title | htmlEscape }}"
-           class="tour-map-static"
-           loading="lazy" />
+    <div class="tour-column tour-column-map">
+      {{- if $mapImage -}}
+      <div class="tour-map-frame">
+        <img src="{{ $mapImage | htmlEscape }}"
+             alt="Map of {{ $title | htmlEscape }}"
+             class="tour-map-static"
+             loading="lazy" />
 
-      {{- /* Action buttons positioned at bottom-right */ -}}
-      {{- if or $gpx $bergfexUrl -}}
-      <div class="tour-map-actions">
-        {{- if $gpx -}}
-        <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
-          <i class="fa-solid fa-download"></i>
-          <span>GPX</span>
-        </a>
-        {{- end -}}
+        {{- if or $gpx $bergfexUrl -}}
+        <div class="tour-map-actions">
+          {{- if $gpx -}}
+          <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
+            <span>GPX</span>
+            <i class="fa-solid fa-download"></i>
+          </a>
+          {{- end -}}
 
-        {{- if $bergfexUrl -}}
-        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Auf Bergfex ansehen">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          <span>Bergfex</span>
-        </a>
+          {{- if $bergfexUrl -}}
+          <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Auf Bergfex ansehen">
+            <span>Bergfex</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          {{- end -}}
+        </div>
         {{- end -}}
       </div>
+      {{- else -}}
+      <div class="map-error">Keine Karte verfügbar</div>
       {{- end -}}
     </div>
-    {{- end -}}
   </div>
 </div>

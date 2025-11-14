@@ -12,240 +12,320 @@
 
 .tour-box {
   margin: 2rem 0;
-  padding: 1.5rem;
-  background: white;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem 1.5rem 1.75rem;
+  background: #ffffff;
+  border: 2px solid #0f172a;
+  border-radius: 0;
+  color: #0f172a;
+}
+
+.tour-ticket-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ticket-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ticket-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.85rem;
+  border: 1px solid #0f172a;
+  border-radius: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.ticket-chip i {
+  font-size: 0.85rem;
+}
+
+.ticket-chip-date {
+  border-color: #b45309;
+  background: #fff8eb;
+  color: #7c2d12;
+}
+
+.ticket-chip-type {
+  border-color: #0f172a;
+}
+
+.ticket-chip-type-hike {
+  border-color: #047857;
+  color: #065f46;
+}
+
+.ticket-chip-type-mtb {
+  border-color: #b45309;
+  color: #7c2d12;
+}
+
+.ticket-chip-type-gravel {
+  border-color: #1d4ed8;
+  color: #1e3a8a;
+}
+
+.ticket-chip-type-run {
+  border-color: #be185d;
+  color: #831843;
 }
 
 .tour-title {
-  margin: 0 0 1rem 0;
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #222;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ticket-region {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.ticket-region span {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.tour-ticket-grid {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #0f172a;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.75fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.tour-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .tour-cover {
-  margin: 1rem 0;
+  margin: 0;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
 }
 
 .tour-cover img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
   display: block;
+  object-fit: cover;
 }
 
-/* Two-column layout: Info left, Map right */
-.tour-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.tour-info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Meta badges (type, region, date) */
-.tour-meta-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.badge-link {
-  text-decoration: none;
-  color: #0066cc;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.badge-link:hover {
-  color: #0052a3;
-  opacity: 0.8;
-}
-
-.badge-link .badge-icon {
-  color: #0066cc;
-}
-
-.badge-link:hover .badge-icon {
-  color: #0052a3;
-}
-
-.badge-icon {
-  font-size: 1rem;
-  color: #666;
-}
-
-/* Metric tiles grid (2x2) */
-.tour-tiles {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.tile {
-  background: #f8f9fa;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
-}
-
-.tile-icon {
-  font-size: 1.3rem;
-  color: #333;
-}
-
-.tile-value {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #222;
-}
-
-.tile-label {
+.tour-cover figcaption {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
   font-size: 0.7rem;
-  color: #666;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #475569;
+  border-top: 1px solid #d1d5db;
 }
 
-.tile-main {
+.tour-section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.tour-essentials {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
-/* Tile color accents */
-.tile-distance .tile-icon {
-  color: #1565c0;
+.tour-stats {
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #0f172a;
 }
 
-.tile-elevation .tile-icon {
-  color: #2e7d32;
+.tour-stat {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.tile-maxheight .tile-icon {
-  color: #6a1b9a;
+.tour-stat:last-child {
+  border-bottom: none;
 }
 
-.tile-duration .tile-icon {
-  color: #e65100;
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4b5563;
 }
 
-/* Map section (right column) */
-.tour-map-section {
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
-  min-height: 200px;
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: right;
+  color: #0f172a;
+}
+
+.stat-unit {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.tour-peaks {
+  margin-top: 1.35rem;
+}
+
+.peaks-ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #475569;
+  counter-reset: peakcount;
+}
+
+.peak-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.peak-row:last-child {
+  border-bottom: none;
+}
+
+.peak-row::before {
+  counter-increment: peakcount;
+  content: counter(peakcount, decimal-leading-zero);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #475569;
+  width: 2rem;
+}
+
+.tour-column-map {
+  gap: 0.75rem;
+}
+
+.tour-map-frame {
+  border: 2px solid #0f172a;
+  background: #f4f4f0;
+  min-height: 220px;
   position: relative;
+  overflow: hidden;
 }
 
 .tour-map-static {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  border: 1px solid #e0e0e0;
+  object-fit: cover;
 }
 
-/* Map action buttons (GPX, Bergfex) positioned at bottom-right */
 .tour-map-actions {
   position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  gap: 0.5rem;
+  border-top: 1px solid #0f172a;
+  background: #ffffff;
 }
 
 .map-action-btn {
-  display: inline-flex;
+  flex: 1;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.35rem;
-  padding: 0.4rem 0.7rem;
-  background: #6b7280;
-  color: white;
+  padding: 0.45rem 0.75rem;
   text-decoration: none;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  transition: background 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  border-left: 1px solid #d1d5db;
 }
 
-.map-action-btn:hover {
-  background: #4b5563;
-  opacity: 0.95;
+.map-action-btn:first-child {
+  border-left: none;
 }
 
 .map-action-btn i {
   font-size: 0.85rem;
 }
 
-/* Peaks section */
-.tour-peaks {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 1rem;
-  margin-top: 1rem;
-}
-
-.peaks-title {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.65rem;
-}
-
-.peaks-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.peak-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: #e8f5e9;
-  border-left: 3px solid #4caf50;
-  font-size: 0.9rem;
-  color: #2e7d32;
-}
-
-.peak-icon {
-  font-size: 1rem;
-}
-
-.peak-name {
-  font-weight: 500;
+.map-action-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
 }
 
 .map-error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: #999;
+  border: 1px solid #d1d5db;
+  padding: 1.5rem;
+  text-align: center;
   font-size: 0.9rem;
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .tour-ticket-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tour-map-frame {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tour-box {
+    padding: 1rem;
+  }
+
+  .tour-stat {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "label label"
+      "value unit";
+  }
+
+  .stat-label {
+    grid-area: label;
+  }
+
+  .stat-value {
+    grid-area: value;
+  }
+
+  .stat-unit {
+    grid-area: unit;
+  }
 }
 
 /* ========================================
