@@ -15,9 +15,8 @@ Perfect autumn riding conditions today! The trails were dry, the leaves were gol
   region="Karwendel"
   distance_km="32.8"
   elevation_m="1240"
+  max_height="1650"
   duration_h="4.5"
-  max_alt_m="1650"
-  min_alt_m="620"
   gpx="/uploads/2025/alpine-trails.gpx"
 >}}
 
