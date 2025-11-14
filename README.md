@@ -19,20 +19,9 @@ A comprehensive tours system for Micro.blog/Hugo that adds GPX-powered tour trac
 2. Enter the repository URL: `https://github.com/flschr/mbplugin-fischr-tours`
 3. Click **Install**
 
-### 2. Download Required Libraries
+The plugin automatically loads Leaflet map libraries from CDN - no additional setup required!
 
-The plugin requires Leaflet libraries for maps. From the plugin directory, run:
-
-```bash
-cd static/tours
-curl -o leaflet.css https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
-curl -o leaflet.js https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
-curl -o leaflet-gpx.js https://cdn.jsdelivr.net/npm/leaflet-gpx@1.7.0/gpx.min.js
-```
-
-See `static/tours/DOWNLOAD_LIBRARIES.md` for details.
-
-### 3. Create Tours Page
+### 2. Create Tours Page
 
 1. In Micro.blog, go to **Posts** → **Pages**
 2. Create a new page titled "Tours" with URL `/tours/`
@@ -151,13 +140,10 @@ mbplugin-fischr-tours/
 │   └── tours.json              # Auto-generated tours data
 ├── layouts/
 │   ├── shortcodes/
-│   │   └── tour.html           # Tour shortcode template
+│   │   └── tour.html           # Tour shortcode template (loads Leaflet from CDN)
 │   └── page/
 │       └── tours.html          # Tours archive page
 ├── static/tours/
-│   ├── leaflet.css            # Leaflet styles (download required)
-│   ├── leaflet.js             # Leaflet library (download required)
-│   ├── leaflet-gpx.js         # GPX plugin (download required)
 │   ├── app.js                 # Map initialization
 │   └── archive.js             # Archive filters & stats
 └── assets/tours/
@@ -214,9 +200,9 @@ The plugin supports these tour types with emoji indicators:
 ## Troubleshooting
 
 ### Maps not displaying
-- Ensure Leaflet libraries are downloaded (see step 2)
 - Check browser console for JavaScript errors
 - Verify GPX file path is correct and file exists
+- Ensure Leaflet CDN resources can be loaded (check network tab in browser dev tools)
 
 ### Tours not appearing on /tours/ page
 - Check `data/tours.json` exists and contains tours
