@@ -52,9 +52,11 @@ Today I hiked three peaks in the Bavarian Prealps!
   region="Bayerische Voralpen"
   distance_km="10.54"
   elevation_m="897"
+  max_height="1940"
   duration_h="6.13"
   gpx="/uploads/2025/drei-gipfel.gpx"
   bergfex_url="https://www.bergfex.de/mybergfex/activities/23511538"
+  peaks="Hoher Fricken (1940m);Karkopf (1738m);Brünnstein (1619m)"
 >}}
 
 The views were spectacular...
@@ -74,11 +76,11 @@ The views were spectacular...
 #### Optional
 - `region`: Geographic region
 - `duration_h`: Duration in hours (float)
-- `max_alt_m`: Maximum altitude
-- `min_alt_m`: Minimum altitude
+- `max_height`: Maximum altitude in meters (integer)
 - `bergfex_url`: Link to Bergfex activity
 - `cover_image`: Path to cover image
 - `map_image`: Path to custom static map image (defaults to auto-generated `/maps/{id}.png`)
+- `peaks`: Semicolon-separated list of peaks with heights (e.g., "Peak 1 (1234m);Peak 2 (5678m)")
 
 ### GPX File Locations
 

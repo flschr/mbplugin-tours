@@ -14,10 +14,12 @@ Today I conquered three peaks in the Bavarian Prealps on a foggy autumn morning.
   region="Bayerische Voralpen"
   distance_km="10.54"
   elevation_m="897"
+  max_height="1940"
   duration_h="6.13"
   gpx="/uploads/2025/drei-gipfel.gpx"
   bergfex_url="https://www.bergfex.de/mybergfex/activities/23511538"
   cover_image="/uploads/2025/drei-gipfel-summit.jpg"
+  peaks="Hoher Fricken (1940m);Karkopf (1738m);Brünnstein (1619m)"
 >}}
 
 The trail started in thick fog, making navigation a bit challenging. I relied heavily on my GPS track and marked trails. Around 500 meters elevation, I broke through the fog layer into brilliant sunshine. The contrast was stunning - looking down at a sea of clouds while the peaks around me were bathed in golden light.
