@@ -115,7 +115,9 @@
           {{- end -}}
 
           {{- if .date -}}
-            {{- $metaParts = $metaParts | append (.date | htmlEscape) -}}
+            {{- $parsedDate := time.AsTime .date -}}
+            {{- $formattedDate := $parsedDate.Format "02.01.2006" -}}
+            {{- $metaParts = $metaParts | append $formattedDate -}}
           {{- end -}}
 
           {{- if .type -}}
