@@ -123,24 +123,45 @@
     <div class="tour-card-heading">
       <h3 class="tour-card-title">{{ $title | htmlEscape }}</h3>
       {{- $hasMeta := or $region $type -}}
-      {{- if $hasMeta -}}
+      {{- $hasMapActions := or $gpx $bergfexUrl -}}
+      {{- if or $hasMeta $hasMapActions -}}
       <div class="tour-card-region">
-        {{- if $region -}}
-        <span class="tour-region-meta">
-          <svg class="tour-meta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 2.25c-3.18 0-5.75 2.52-5.75 5.63 0 4.34 5.75 11.12 5.75 11.12s5.75-6.78 5.75-11.12c0-3.11-2.57-5.63-5.75-5.63zm0 8.38a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5z" fill="currentColor" />
-          </svg>
-          <span>{{ $region | htmlEscape }}</span>
-        </span>
+        {{- if $hasMeta -}}
+        <div class="tour-region-meta-list">
+          {{- if $region -}}
+          <span class="tour-region-meta">
+            <svg class="tour-meta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.25c-3.18 0-5.75 2.52-5.75 5.63 0 4.34 5.75 11.12 5.75 11.12s5.75-6.78 5.75-11.12c0-3.11-2.57-5.63-5.75-5.63zm0 8.38a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5z" fill="currentColor" />
+            </svg>
+            <span>{{ $region | htmlEscape }}</span>
+          </span>
+          {{- end -}}
+
+          {{- if $type -}}
+          <span class="tour-region-meta">
+            <svg class="tour-meta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6 3v18M6 4.5h9l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>{{ $typeLabel | htmlEscape }}</span>
+          </span>
+          {{- end -}}
+        </div>
         {{- end -}}
 
-        {{- if $type -}}
-        <span class="tour-region-meta">
-          <svg class="tour-meta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M6 3v18M6 4.5h9l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span>{{ $typeLabel | htmlEscape }}</span>
-        </span>
+        {{- if $hasMapActions -}}
+        <div class="tour-map-actions">
+          {{- if $gpx -}}
+          <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
+            <span>GPX</span>
+          </a>
+          {{- end -}}
+
+          {{- if $bergfexUrl -}}
+          <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Auf Bergfex ansehen">
+            <span>Bergfex</span>
+          </a>
+          {{- end -}}
+        </div>
         {{- end -}}
       </div>
       {{- end -}}
@@ -154,21 +175,6 @@
          data-gpx="{{ $gpx | htmlEscape }}"
          {{- if $peaksDataJSON }} data-peaks='{{ $peaksDataJSON | htmlEscape }}'{{ end }}></div>
 
-    {{- if or $gpx $bergfexUrl -}}
-    <div class="tour-map-actions">
-      {{- if $gpx -}}
-      <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
-        <span>GPX</span>
-      </a>
-      {{- end -}}
-
-      {{- if $bergfexUrl -}}
-      <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Auf Bergfex ansehen">
-        <span>Bergfex</span>
-      </a>
-      {{- end -}}
-    </div>
-    {{- end -}}
   </div>
   {{- else -}}
   <div class="map-error map-error--full">Keine Karte verfügbar</div>
