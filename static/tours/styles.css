@@ -309,8 +309,23 @@
   gap: 0.5rem;
 }
 
-.tour-peak-button[aria-pressed="true"] {
+.tour-peak-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tour-marker-bg);
+  color: var(--tour-marker-text);
   font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.tour-peak-button[aria-pressed="true"] {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* ========================================
@@ -485,5 +500,9 @@
 
   .tour-card-visuals {
     background: rgba(255, 255, 255, 0.02);
+  }
+
+  .tour-peak-button[aria-pressed="true"] {
+    background-color: rgba(255, 255, 255, 0.05);
   }
 }
