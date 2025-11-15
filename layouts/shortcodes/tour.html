@@ -277,13 +277,13 @@
                   data-peak-index="{{ $peakMapIndex }}"
                   data-peak-lat="{{ $peak.lat | htmlEscape }}"
                   data-peak-lng="{{ $peak.lng | htmlEscape }}"
-                  title="{{ printf "Gipfel %s auf der Karte zeigen" $peak.label | htmlEscape }}">{{ add $index 1 }}. {{ $peak.label | htmlEscape }}</button>
+                  title="{{ printf "Gipfel %s auf der Karte zeigen" $peak.label | htmlEscape }}"><span class="tour-peak-number">{{ add $index 1 }}</span>{{ $peak.label | htmlEscape }}</button>
           {{- $peakMapIndex = add $peakMapIndex 1 -}}
           {{- else -}}
           <button type="button"
                   class="tour-peak-button"
                   disabled
-                  aria-disabled="true">{{ add $index 1 }}. {{ $peak.label | htmlEscape }}</button>
+                  aria-disabled="true"><span class="tour-peak-number">{{ add $index 1 }}</span>{{ $peak.label | htmlEscape }}</button>
           {{- end -}}
         {{- end -}}
       </div>
