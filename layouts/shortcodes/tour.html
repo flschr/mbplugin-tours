@@ -93,41 +93,39 @@
     </div>
   </div>
 
-  {{- if or $coverImage $mapImage -}}
-  <div class="tour-card-visuals">
-    {{- if $coverImage -}}
+  {{- if $mapImage -}}
+  <div class="tour-card-map tour-card-map--full">
+    <img src="{{ $mapImage | htmlEscape }}"
+         alt="Map of {{ $title | htmlEscape }}"
+         class="tour-map-static"
+         loading="lazy" />
+
+    {{- if or $gpx $bergfexUrl -}}
+    <div class="tour-map-actions">
+      {{- if $gpx -}}
+      <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
+        <span>GPX</span>
+      </a>
+      {{- end -}}
+
+      {{- if $bergfexUrl -}}
+      <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn map-action-btn--bergfex" title="Auf Bergfex ansehen">
+        <span>Bergfex</span>
+      </a>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+  {{- else -}}
+  <div class="map-error map-error--full">Keine Karte verfügbar</div>
+  {{- end -}}
+
+  {{- if $coverImage -}}
+  <div class="tour-card-visuals tour-card-visuals--compact">
     <figure class="tour-cover">
       <img src="{{ $coverImage | htmlEscape }}" alt="{{ $title | htmlEscape }}" loading="lazy" />
       <figcaption>Tourfoto</figcaption>
     </figure>
-    {{- end -}}
-
-    {{- if $mapImage -}}
-    <div class="tour-card-map">
-      <img src="{{ $mapImage | htmlEscape }}"
-           alt="Map of {{ $title | htmlEscape }}"
-           class="tour-map-static"
-           loading="lazy" />
-
-      {{- if or $gpx $bergfexUrl -}}
-      <div class="tour-map-actions">
-        {{- if $gpx -}}
-        <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
-          <span>GPX</span>
-        </a>
-        {{- end -}}
-
-        {{- if $bergfexUrl -}}
-        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn map-action-btn--bergfex" title="Auf Bergfex ansehen">
-          <span>Bergfex</span>
-        </a>
-        {{- end -}}
-      </div>
-      {{- end -}}
-    </div>
-    {{- else -}}
-    <div class="map-error">Keine Karte verfügbar</div>
-    {{- end -}}
   </div>
   {{- end -}}
 
