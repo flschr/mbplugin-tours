@@ -99,6 +99,68 @@
     }, []);
   }
 
+  function setupInteractionGuard(map, canvas) {
+    if (!map || !canvas) {
+      return;
+    }
+
+    var guardButton = document.createElement('button');
+    guardButton.type = 'button';
+    guardButton.className = 'tour-map-guard';
+    guardButton.setAttribute('aria-label', 'Karte aktivieren, um sie zu bedienen');
+    guardButton.innerHTML = '<span>Karte aktivieren</span><small>Scrollen und Zoomen einschalten</small>';
+
+    var controls = [
+      map.scrollWheelZoom,
+      map.dragging,
+      map.touchZoom,
+      map.doubleClickZoom,
+      map.boxZoom,
+      map.keyboard
+    ];
+
+    controls.forEach(function(control) {
+      if (control && control.disable) {
+        control.disable();
+      }
+    });
+
+    var activated = false;
+
+    function activateMap() {
+      if (activated) {
+        return;
+      }
+      activated = true;
+
+      controls.forEach(function(control) {
+        if (control && control.enable) {
+          control.enable();
+        }
+      });
+
+      if (guardButton.parentNode) {
+        guardButton.parentNode.removeChild(guardButton);
+      }
+      canvas.classList.remove('tour-map-guarded');
+    }
+
+    guardButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      activateMap();
+    });
+
+    guardButton.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activateMap();
+      }
+    });
+
+    canvas.classList.add('tour-map-guarded');
+    canvas.appendChild(guardButton);
+  }
+
   function renderTourMap(canvas) {
     if (!canvas || canvas.dataset.mapInitialized === 'true') {
       log('[Tours] Canvas already initialized or not found');
@@ -140,6 +202,8 @@
       zoomControl: true,
       attributionControl: true
     });
+
+    setupInteractionGuard(map, canvas);
 
     L.tileLayer(TILE_LAYER_URL, {
       attribution: TILE_LAYER_ATTRIBUTION,

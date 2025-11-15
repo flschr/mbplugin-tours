@@ -26,6 +26,8 @@
   --tour-radius-content: 0.35rem;
   --tour-radius-pill: 1.5rem;
   --tour-card-text: #0f172a;
+  --tour-card-padding-inline: clamp(1rem, 5vw, 1.75rem);
+  --tour-mobile-gutter: 1rem;
 }
 
 .tour-box {
@@ -39,7 +41,7 @@
 }
 
 .tour-card-header {
-  padding: 1.6rem 1.75rem;
+  padding: 1.6rem var(--tour-card-padding-inline);
   background: var(--tour-header-bg);
   color: #ecfdf5;
   display: flex;
@@ -94,7 +96,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
-  padding: 1rem 1.75rem 0;
+  padding: 1rem var(--tour-card-padding-inline) 0;
   background: var(--tour-muted-bg);
 }
 
@@ -155,9 +157,50 @@
 .tour-map-dynamic {
   width: 100%;
   height: 400px;
+  position: relative;
   border-radius: 0;
   overflow: hidden;
   background: #0f172a;
+}
+
+.tour-map-dynamic.tour-map-guarded {
+  cursor: pointer;
+}
+
+.tour-map-guard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border: none;
+  background: rgba(15, 23, 42, 0.65);
+  color: #f8fafc;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+  touch-action: pan-y pinch-zoom;
+}
+
+.tour-map-guard small {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.tour-map-guard:hover,
+.tour-map-guard:focus-visible {
+  background: rgba(15, 23, 42, 0.78);
+  outline: none;
 }
 
 .tour-hidden-marker {
@@ -214,6 +257,27 @@
   display: block;
 }
 
+@media (max-width: 640px) {
+  .tour-box {
+    margin-left: calc(-1 * var(--tour-mobile-gutter));
+    margin-right: calc(-1 * var(--tour-mobile-gutter));
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  .tour-card-header,
+  .tour-card-visuals,
+  .tour-card-body {
+    padding-left: var(--tour-mobile-gutter);
+    padding-right: var(--tour-mobile-gutter);
+  }
+
+  .tour-card-heading {
+    gap: 0.4rem;
+  }
+}
+
 .tour-card-map--dynamic {
   background: #0f172a;
 }
@@ -264,7 +328,7 @@
 }
 
 .tour-card-body {
-  padding: 1.6rem 1.75rem 1.75rem;
+  padding: 1.6rem var(--tour-card-padding-inline) 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
