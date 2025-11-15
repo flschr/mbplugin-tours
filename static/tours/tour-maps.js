@@ -10,6 +10,8 @@
   var GPX_OPACITY = 0.9;
   var GPX_WEIGHT = 4;
   var DEBUG = false; // Set to true for debugging
+  var METERS_PER_DEGREE_LAT = 111320;
+  var DUPLICATE_OFFSET_METERS = 15;
 
   function log() {
     if (DEBUG && console && console.log) {
@@ -73,10 +75,43 @@
     }
   }
 
+  function calculateDuplicateOffset(lat, duplicateIndex, totalDuplicates) {
+    var angle = (Math.PI * 2 * duplicateIndex) / totalDuplicates;
+    var radiusMultiplier = 1 + Math.floor(totalDuplicates / 6);
+    var radiusMeters = DUPLICATE_OFFSET_METERS * radiusMultiplier;
+
+    var latMeters = Math.sin(angle) * radiusMeters;
+    var lngMeters = Math.cos(angle) * radiusMeters;
+
+    var latOffset = latMeters / METERS_PER_DEGREE_LAT;
+    var metersPerDegreeLng = Math.max(Math.cos(lat * (Math.PI / 180)) * METERS_PER_DEGREE_LAT, 1);
+    var lngOffset = lngMeters / metersPerDegreeLng;
+
+    return {
+      lat: latOffset,
+      lng: lngOffset
+    };
+  }
+
   function createPeakMarkers(map, peaks) {
     if (!map || !Array.isArray(peaks) || !peaks.length) {
       return [];
     }
+
+    var locationCounts = peaks.reduce(function(counts, peak) {
+      var lat = parseFloat(peak.lat);
+      var lng = parseFloat(peak.lng);
+
+      if (!isFinite(lat) || !isFinite(lng)) {
+        return counts;
+      }
+
+      var key = lat.toFixed(6) + ',' + lng.toFixed(6);
+      counts[key] = (counts[key] || 0) + 1;
+      return counts;
+    }, {});
+
+    var duplicateOffsets = {};
 
     return peaks.reduce(function(markers, peak, index) {
       var lat = parseFloat(peak.lat);
@@ -85,6 +120,16 @@
       if (!isFinite(lat) || !isFinite(lng)) {
         log('[Tours] Ignoring peak with invalid coordinates', peak);
         return markers;
+      }
+
+      var key = lat.toFixed(6) + ',' + lng.toFixed(6);
+      var duplicateCount = locationCounts[key] || 0;
+      if (duplicateCount > 1) {
+        var duplicateIndex = duplicateOffsets[key] || 0;
+        var offset = calculateDuplicateOffset(lat, duplicateIndex, duplicateCount);
+        lat += offset.lat;
+        lng += offset.lng;
+        duplicateOffsets[key] = duplicateIndex + 1;
       }
 
       var icon = L.divIcon({
