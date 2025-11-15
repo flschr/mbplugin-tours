@@ -67,7 +67,7 @@
         shadowUrl: ''
       },
       polyline_options: {
-        color: '#0ea5e9',
+        color: '#dc2626',
         opacity: 0.9,
         weight: 4,
         lineCap: 'round',
