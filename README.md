@@ -4,14 +4,13 @@ A comprehensive tours system for Micro.blog/Hugo that adds GPX-powered tour trac
 
 ## Features
 
-- **Tour Shortcode**: Display tour info boxes with static map images in blog posts
+- **Tour Shortcode**: Display tour info boxes with auto-generated static maps
 - **Tours Archive Page**: Central `/tours/` page with filters (year, type) and live statistics
 - **Automatic Map Generation**: GitHub Actions auto-generate static PNG maps from GPX files
 - **Automated Data**: GitHub Action auto-generates tours.json from your blog posts
 - **GPX Download**: Direct download links for GPX files in tour boxes
 - **Responsive Design**: Mobile-friendly tour boxes and archive layout
 - **Multiple Tour Types**: Hike, MTB, Gravel, Run, and custom types
-- **Zero External Dependencies**: No CDN libraries, no JavaScript mapping libraries
 
 ## Installation
 
