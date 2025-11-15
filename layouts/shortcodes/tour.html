@@ -246,23 +246,17 @@
     </div>
     {{- end -}}
 
-    {{- if $hasMapActions -}}
-    <div class="tour-card-footer">
-      <div class="tour-map-actions">
-        {{- if $gpx -}}
-        <a href="{{ $gpx | htmlEscape }}" download class="map-action-btn" title="GPX herunterladen">
-          <span>GPX</span>
-        </a>
-        {{- end -}}
-
-        {{- if $bergfexUrl -}}
-        <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="map-action-btn" title="Auf Bergfex ansehen">
-          <span>Bergfex</span>
-        </a>
-        {{- end -}}
-      </div>
-    </div>
+  </div>
+  {{- if $hasMapActions -}}
+  <div class="tour-card-links-bar">
+    {{- if $gpx -}}
+    <a href="{{ $gpx | htmlEscape }}" download class="tour-card-link" title="GPX herunterladen">GPX</a>
     {{- end -}}
 
+    {{- if $bergfexUrl -}}
+    <a href="{{ $bergfexUrl | htmlEscape }}" target="_blank" rel="noopener noreferrer" class="tour-card-link" title="Auf Bergfex ansehen">Bergfex</a>
+    {{- end -}}
   </div>
+  {{- end -}}
+</div>
 </div>
