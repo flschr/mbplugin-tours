@@ -22,7 +22,7 @@
 
 {{- /* Detect feed / non-HTML outputs (RSS, JSON, Atom) */ -}}
 {{- $outputFormatName := "" -}}
-{{- with .Page.OutputFormat -}}
+{{- with .OutputFormat -}}
   {{- with .Name -}}
     {{- $outputFormatName = lower . -}}
   {{- end -}}
