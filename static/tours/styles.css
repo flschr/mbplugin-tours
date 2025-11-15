@@ -68,6 +68,10 @@
   align-items: flex-start;
   width: 100%;
   pointer-events: none;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .tour-card-header::after {
@@ -84,6 +88,11 @@
   gap: 0.6rem;
   position: relative;
   z-index: 1;
+}
+
+.tour-card-hero--meta-hidden .tour-card-header {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .tour-card-title {
