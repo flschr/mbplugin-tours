@@ -156,6 +156,8 @@ The views from the summit were incredible...
 
 - `region`, `duration_h`, `max_height`, `bergfex_url`, `cover_image`, `peaks`
 
+`peaks` accepts a semicolon-separated list (`Peak 1 (1234m);Peak 2 (5678m)`). Append coordinates with pipes (`Peak 1 (1234m)|47.45|11.12`) to place numbered markers on the Leaflet map. Entries without coordinates still show up as chips but won't render a map pin.
+
 ### Tour Types
 
 - `hike`, `mtb`, `gravel`, `run`, `other`

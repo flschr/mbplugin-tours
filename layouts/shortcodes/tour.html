@@ -62,6 +62,36 @@
 {{- end -}}
 {{- $hasPeaks := and $peaksRaw (ne $peaksRawTrimmed "") -}}
 
+{{- /* Build structured peak data once for both chips and map markers */ -}}
+{{- $peaksList := slice -}}
+{{- if $hasPeaks -}}
+  {{- range $value := split $peaksRaw ";" -}}
+    {{- $peak := trim $value " \n\t" -}}
+    {{- if $peak -}}
+      {{- $parts := split $peak "|" -}}
+      {{- $peakLabel := trim (index $parts 0) " \n\t" -}}
+      {{- $lat := "" -}}
+      {{- $lng := "" -}}
+      {{- if ge (len $parts) 3 -}}
+        {{- $lat = trim (index $parts 1) " \n\t" -}}
+        {{- $lng = trim (index $parts 2) " \n\t" -}}
+      {{- end -}}
+      {{- $peakDict := dict "label" $peakLabel -}}
+      {{- $hasCoords := and $lat (ne $lat "") $lng (ne $lng "") -}}
+      {{- if $hasCoords -}}
+        {{- $peakDict = merge $peakDict (dict "lat" $lat "lng" $lng) -}}
+      {{- end -}}
+      {{- $peaksList = $peaksList | append $peakDict -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $peaksWithCoords := where $peaksList "lat" "ne" nil -}}
+{{- $peaksDataJSON := "" -}}
+{{- if gt (len $peaksWithCoords) 0 -}}
+  {{- $peaksDataJSON = $peaksList | jsonify -}}
+{{- end -}}
+
 <div class="tour-box" id="tour-{{ $id | htmlEscape }}" data-tour-id="{{ $id | htmlEscape }}">
   <div class="tour-card-header">
     <div class="tour-card-heading">
@@ -102,7 +132,10 @@
 
   {{- if $shouldRenderMap -}}
   <div class="tour-card-map tour-card-map--full">
-    <div class="tour-map-dynamic" data-tour-map-canvas data-gpx="{{ $gpx | htmlEscape }}"></div>
+    <div class="tour-map-dynamic"
+         data-tour-map-canvas
+         data-gpx="{{ $gpx | htmlEscape }}"
+         {{- if $peaksDataJSON }} data-peaks='{{ $peaksDataJSON | htmlEscape }}'{{ end }}></div>
 
     {{- if or $gpx $bergfexUrl -}}
     <div class="tour-map-actions">
@@ -185,19 +218,14 @@
     </div>
 
     {{- if $hasPeaks -}}
-    {{- $peakIndex := 0 -}}
     <div class="tour-peaks">
       <p class="tour-section-label">Bestiegene Gipfel</p>
       <div class="tour-peaks-chips">
-        {{- range $value := split $peaksRaw ";" -}}
-          {{- $peak := trim $value " \n\t" -}}
-          {{- if $peak -}}
-            {{- $peakIndex = add $peakIndex 1 -}}
-            <span class="tour-peak-chip">
-              <span class="tour-peak-chip-number">{{ $peakIndex }}</span>
-              <span class="tour-peak-chip-label">{{ $peak | htmlEscape }}</span>
-            </span>
-          {{- end -}}
+        {{- range $index, $peak := $peaksList -}}
+          <span class="tour-peak-chip">
+            <span class="tour-peak-chip-number">{{ add $index 1 }}</span>
+            <span class="tour-peak-chip-label">{{ $peak.label | htmlEscape }}</span>
+          </span>
         {{- end -}}
       </div>
     </div>
