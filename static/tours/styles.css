@@ -322,6 +322,14 @@
   font-size: 0.85rem;
   margin-right: 0.5rem;
   flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover and active states - invert pin button colors */
+.tour-peak-button:hover .tour-peak-number,
+.tour-peak-button[aria-pressed="true"] .tour-peak-number {
+  background: #ffffff;
+  color: #0094ff;
 }
 
 .tour-peak-button[aria-pressed="true"] {
@@ -504,5 +512,12 @@
 
   .tour-peak-button[aria-pressed="true"] {
     background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Dark mode: Invert pin button colors on hover and active */
+  .tour-peak-button:hover .tour-peak-number,
+  .tour-peak-button[aria-pressed="true"] .tour-peak-number {
+    background: #0b1120;
+    color: #38bdf8;
   }
 }
