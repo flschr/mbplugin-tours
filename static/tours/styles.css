@@ -160,6 +160,44 @@
   background: #0f172a;
 }
 
+.tour-hidden-marker {
+  display: none !important;
+}
+
+.tour-peak-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tour-peak-marker span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--tour-header-bg);
+  color: #ecfdf5;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid rgba(236, 253, 245, 0.85);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+}
+
+.leaflet-tooltip.tour-peak-tooltip {
+  background: rgba(15, 23, 42, 0.92);
+  color: #ecfdf5;
+  border: none;
+  border-radius: var(--tour-radius-pill);
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.25);
+}
+
+.leaflet-tooltip.tour-peak-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.92);
+}
+
 @media (max-width: 768px) {
   .tour-map-dynamic {
     height: 300px;
