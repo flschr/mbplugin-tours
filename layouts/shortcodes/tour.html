@@ -1,5 +1,5 @@
 {{- /*
-  Tour Shortcode - Renders a tour info box with optional Leaflet map
+  Tour Shortcode - Renders a tour info box with optional static map image
 
   Required params: id, title, date, type, distance_km, elevation_m, gpx
   Optional params: region, duration_h, max_height, bergfex_url, cover_image, peaks
@@ -19,7 +19,7 @@
 {{- $gpx := .Get "gpx" -}}
 {{- $coverImage := .Get "cover_image" -}}
 {{- $bergfexUrl := .Get "bergfex_url" -}}
-{{- $peaks := .Get "peaks" -}}
+{{- $peaksRaw := .Get "peaks" -}}
 
 {{- /* Load tour styles only once per page */ -}}
 {{- if not (.Page.Scratch.Get "tour-assets-loaded") -}}
@@ -48,6 +48,18 @@
 {{- if not $mapImage -}}
   {{- $mapImage = printf "/maps/%s.png" $id -}}
 {{- end -}}
+{{- $hasMapImage := and $mapImage (ne $mapImage "") -}}
+
+{{- $peaksList := slice -}}
+{{- if $peaksRaw -}}
+  {{- range $value := split $peaksRaw ";" -}}
+    {{- $peak := trim $value " " -}}
+    {{- if $peak -}}
+      {{- $peaksList = append $peaksList $peak -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $hasPeaks := gt (len $peaksList) 0 -}}
 
 <div class="tour-box" id="tour-{{ $id | htmlEscape }}" data-tour-id="{{ $id | htmlEscape }}">
   <div class="tour-card-header">
@@ -87,7 +99,7 @@
     </div>
   </div>
 
-  {{- if $mapImage -}}
+  {{- if $hasMapImage -}}
   <div class="tour-card-map tour-card-map--full">
     <img src="{{ $mapImage | htmlEscape }}"
          alt="Map of {{ $title | htmlEscape }}"
@@ -174,19 +186,15 @@
       {{- end -}}
     </div>
 
-    {{- if $peaks -}}
+    {{- if $hasPeaks -}}
     <div class="tour-peaks">
       <p class="tour-section-label">Bestiegene Gipfel</p>
       <div class="tour-peaks-chips">
-        {{- $peakList := split $peaks ";" -}}
-        {{- range $index, $value := $peakList -}}
-          {{- $peak := trim $value " " -}}
-          {{- if $peak -}}
+        {{- range $index, $peak := $peaksList -}}
           <span class="tour-peak-chip">
             <span class="tour-peak-chip-number">{{ add $index 1 }}</span>
             <span class="tour-peak-chip-label">{{ $peak | htmlEscape }}</span>
           </span>
-          {{- end -}}
         {{- end -}}
       </div>
     </div>
