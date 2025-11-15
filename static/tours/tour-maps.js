@@ -32,6 +32,21 @@
     canvas.dataset.mapInitialized = 'error';
   }
 
+  var htmlDecoder = null;
+
+  function decodeHtmlEntities(str) {
+    if (!str || typeof str !== 'string') {
+      return str;
+    }
+
+    if (!htmlDecoder) {
+      htmlDecoder = document.createElement('textarea');
+    }
+
+    htmlDecoder.innerHTML = str;
+    return htmlDecoder.value;
+  }
+
   function parsePeaksData(canvas) {
     if (!canvas) {
       return [];
@@ -43,7 +58,8 @@
     }
 
     try {
-      var parsed = JSON.parse(raw);
+      var normalized = decodeHtmlEntities(raw);
+      var parsed = JSON.parse(normalized);
       if (!Array.isArray(parsed)) {
         return [];
       }
