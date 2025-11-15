@@ -12,7 +12,7 @@ This guide walks you through setting up the fischr Tours plugin for Micro.blog.
 
 ### 1.2 Leaflet Libraries
 
-Leaflet and the GPX helper are now loaded directly from trusted CDNs by the shortcode. No manual downloads are required.
+Leaflet and the GPX helper are loaded directly from trusted CDNs by the shortcode. No manual downloads are required.
 
 ### 1.3 Create Tours Page
 
@@ -34,7 +34,8 @@ Copy from this plugin repo to your Micro.blog backup repo:
 ├── workflows/
 │   └── build-tours.yml
 └── scripts/
-    └── parse-tours.js
+    ├── parse-tours.js
+    └── package.json
 ```
 
 ### 2.2 Configure Secrets
@@ -53,14 +54,6 @@ ssh-keygen -t ed25519 -C "tours-actions" -f tours-key -N ""
 **Add to backup repo** (Settings → Secrets → Actions):
 - Name: `PLUGIN_DEPLOY_KEY`
 - Value: Contents of `tours-key` (private key)
-
-#### Mapbox Access Token (Required)
-
-1. Create or log into your Mapbox account at [account.mapbox.com](https://account.mapbox.com/)
-2. Generate a new access token with **Styles: Read** access (Static Images API is included by default)
-3. Add the token to your backup repo secrets as `MAPBOX_ACCESS_TOKEN`
-
-> The GitHub Action uses this token when `generate-map-images.js` calls the Mapbox Static Image API. Without it, static PNGs will not be created.
 
 ### 2.3 Edit Workflow Configuration
 
@@ -89,6 +82,7 @@ env:
 Upload your GPX file to Micro.blog:
 - **Posts** → **Uploads** → upload GPX file
 - Note the path: `/uploads/YYYY/filename.gpx`
+- **Note**: GPX files can have `.gpx` or `.xml` extensions - both work!
 
 ### 3.2 Write Post with Tour Shortcode
 
@@ -121,30 +115,27 @@ The views from the summit were incredible...
 2. Wait for next scheduled workflow run (4 AM UTC daily)
    - Or manually trigger it via Actions tab
 3. Check `/tours/` page on your blog
-4. Your tour should appear with a map!
+4. Your tour should appear with an interactive map!
 
 ## Verification Checklist
 
 - [ ] Plugin installed on Micro.blog
-- [ ] Leaflet libraries downloaded and committed
+- [ ] Leaflet libraries loaded from CDN (automatic)
 - [ ] Tours page created at `/tours/`
 - [ ] Workflow files copied to backup repo
 - [ ] Secrets configured (PLUGIN_DEPLOY_KEY)
-- [ ] Secrets configured (MAPBOX_ACCESS_TOKEN)
 - [ ] Workflow environment variables updated
 - [ ] Test workflow run completed successfully
 - [ ] First tour post published
-- [ ] Tour appears on blog post with map
+- [ ] Tour appears on blog post with interactive map
 - [ ] Tour appears on `/tours/` page
 
 ## Troubleshooting
 
 ### Maps not showing
-→ Check that Leaflet libraries were downloaded (see 1.2)
-
-### Static map workflow failing
-→ Ensure the `MAPBOX_ACCESS_TOKEN` secret is present in your backup repo
-→ Check the GitHub Action logs for Mapbox HTTP errors or quota issues
+→ Check browser console for JavaScript errors
+→ Verify GPX file is accessible and valid
+→ Ensure Leaflet libraries are loading
 
 ### Tours page shows "No tours yet"
 → Run workflow manually to generate tours.json
@@ -163,7 +154,7 @@ The views from the summit were incredible...
 
 ### Optional Shortcode Parameters
 
-- `region`, `duration_h`, `max_alt_m`, `min_alt_m`, `bergfex_url`, `cover_image`
+- `region`, `duration_h`, `max_height`, `bergfex_url`, `cover_image`, `peaks`
 
 ### Tour Types
 
@@ -178,6 +169,14 @@ Change in workflow file:
 schedule:
   - cron: '0 4 * * *'  # Modify as needed
 ```
+
+## GPX File Formats
+
+The plugin accepts GPX files with any file extension:
+- `.gpx` (standard GPX format)
+- `.xml` (GPX files saved as XML)
+
+As long as the file contains valid GPX data, it will work!
 
 ## Example Posts
 

@@ -8,24 +8,13 @@
     return typeof window !== 'undefined' && window.L && typeof window.L.map === 'function';
   }
 
-  function hideStaticImage(img) {
-    if (!img) return;
-    img.classList.add('tour-map-static--hidden');
-  }
-
-  function showDynamicCanvas(canvas) {
-    if (!canvas) return;
-    canvas.hidden = false;
-    canvas.classList.add('tour-map-dynamic--visible');
-  }
-
-  function renderDynamicMap(canvas) {
+  function renderTourMap(canvas) {
     if (!canvas || canvas.dataset.mapInitialized === 'true') {
       return;
     }
 
     if (!hasLeafletSupport()) {
-      console.warn('[Tours] Leaflet not available for dynamic map fallback');
+      console.warn('[Tours] Leaflet not available for rendering map');
       return;
     }
 
@@ -35,11 +24,10 @@
     }
 
     canvas.dataset.mapInitialized = 'true';
-    showDynamicCanvas(canvas);
 
     var map = L.map(canvas, {
-      zoomControl: false,
-      attributionControl: false
+      zoomControl: true,
+      attributionControl: true
     });
 
     L.tileLayer(TILE_LAYER_URL, {
@@ -71,55 +59,22 @@
     gpxLayer.addTo(map);
   }
 
-  function enableDynamicFallback(wrapper) {
-    var canvas = wrapper.querySelector('[data-tour-map-canvas]');
-    if (!canvas) {
-      return;
-    }
-    renderDynamicMap(canvas);
-  }
-
-  function setupMapFallbacks() {
-    var mapWrappers = document.querySelectorAll('.tour-card-map');
-    if (!mapWrappers.length) {
+  function setupTourMaps() {
+    var canvases = document.querySelectorAll('[data-tour-map-canvas]');
+    if (!canvases.length) {
       return;
     }
 
-    mapWrappers.forEach(function(wrapper) {
-      var canvas = wrapper.querySelector('[data-tour-map-canvas]');
-      if (!canvas) {
-        return;
-      }
-
-      var staticImage = wrapper.querySelector('[data-tour-map-image]');
-      if (!staticImage) {
-        enableDynamicFallback(wrapper);
-        return;
-      }
-
-      var shouldWatch = staticImage.hasAttribute('data-fallback-map');
-      if (!shouldWatch) {
-        return;
-      }
-
-      if (staticImage.complete && staticImage.naturalWidth === 0) {
-        hideStaticImage(staticImage);
-        enableDynamicFallback(wrapper);
-        return;
-      }
-
-      staticImage.addEventListener('error', function() {
-        hideStaticImage(staticImage);
-        enableDynamicFallback(wrapper);
-      }, { once: true });
+    canvases.forEach(function(canvas) {
+      renderTourMap(canvas);
     });
   }
 
   function initWhenReady() {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupMapFallbacks);
+      document.addEventListener('DOMContentLoaded', setupTourMaps);
     } else {
-      setupMapFallbacks();
+      setupTourMaps();
     }
   }
 

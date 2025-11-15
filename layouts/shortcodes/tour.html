@@ -53,12 +53,8 @@
   {{- $typeLabel = "Run" -}}
 {{- end -}}
 
-{{- $mapImage := .Get "map_image" -}}
-{{- if not $mapImage -}}
-  {{- $mapImage = printf "/maps/%s.png" $id -}}
-{{- end -}}
-{{- $hasMapImage := and $mapImage (ne $mapImage "") -}}
-{{- $shouldRenderDynamicMap := and $gpx (ne $gpx "") -}}
+{{- /* Map rendering: Use dynamic Leaflet map if GPX is provided */ -}}
+{{- $shouldRenderMap := and $gpx (ne $gpx "") -}}
 
 {{- $peaksRawTrimmed := "" -}}
 {{- if $peaksRaw -}}
@@ -104,22 +100,9 @@
     </div>
   </div>
 
-  {{- if or $hasMapImage $shouldRenderDynamicMap -}}
+  {{- if $shouldRenderMap -}}
   <div class="tour-card-map tour-card-map--full">
-    {{- if $hasMapImage -}}
-    <img src="{{ $mapImage | htmlEscape }}"
-         alt="Map of {{ $title | htmlEscape }}"
-         class="tour-map-static"
-         loading="lazy"
-         data-tour-map-image
-         {{- if $shouldRenderDynamicMap -}}
-         data-fallback-map="true"
-         {{- end -}} />
-    {{- end -}}
-
-    {{- if $shouldRenderDynamicMap -}}
-    <div class="tour-map-dynamic" data-tour-map-canvas data-gpx="{{ $gpx | htmlEscape }}" {{ if $hasMapImage }}hidden{{ end }}></div>
-    {{- end -}}
+    <div class="tour-map-dynamic" data-tour-map-canvas data-gpx="{{ $gpx | htmlEscape }}"></div>
 
     {{- if or $gpx $bergfexUrl -}}
     <div class="tour-map-actions">

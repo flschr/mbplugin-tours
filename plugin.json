@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "title": "fischr Tours",
-  "description": "A tours system for Micro.blog with GPX support, Leaflet maps, and filterable archive page",
+  "description": "A tours system for Micro.blog with GPX-powered interactive maps and filterable archive page",
   "author": {
     "name": "fischr",
     "url": "https://fischr.org"
