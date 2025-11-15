@@ -524,12 +524,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .tour-stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ========================================
    Tours Archive Page
    ======================================== */
