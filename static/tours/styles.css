@@ -30,6 +30,12 @@
   --tour-mobile-gutter: 1rem;
 }
 
+@media (max-width: 640px) {
+  :root {
+    --tour-card-padding-inline: 0;
+  }
+}
+
 .tour-box {
   margin: 1.5rem 0;
   border-radius: var(--tour-radius-card);
@@ -258,21 +264,6 @@
 }
 
 @media (max-width: 640px) {
-  .tour-box {
-    margin-left: calc(-1 * var(--tour-mobile-gutter));
-    margin-right: calc(-1 * var(--tour-mobile-gutter));
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-  }
-
-  .tour-card-header,
-  .tour-card-visuals,
-  .tour-card-body {
-    padding-left: var(--tour-mobile-gutter);
-    padding-right: var(--tour-mobile-gutter);
-  }
-
   .tour-card-heading {
     gap: 0.4rem;
   }
